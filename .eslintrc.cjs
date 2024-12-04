@@ -21,6 +21,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     'react/jsx-no-bind': 'off',
+    '@typescript-eslint/no-explicit-any': 1,
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'import/extensions': [
       'error',
       'ignorePackages',

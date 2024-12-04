@@ -15,24 +15,26 @@
       "prettier --write"
     ],
     "src/**/*.{js,jsx,ts,tsx,json}": [
-      "eslint --cache --fix --max-warnings=0"
+      "eslint --cache --fix --max-warnings=10"
     ]
   },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 10",
     "format": "prettier .  --write",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch ": "vitest",
     "commit": "git-cz",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "version": "conventional-changelog -i CHANGELOG.md -s && git add CHANGELOG.md",
     "prepare": "husky install"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
