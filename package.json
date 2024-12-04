@@ -1,0 +1,78 @@
+{
+  "name": "yumemi-app",
+  "private": false,
+  "description": "yumemi coding test",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md,html}": [
+      "prettier --write"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "eslint --cache --fix --max-warnings=0"
+    ]
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier .  --write",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch ": "vitest",
+    "commit": "git-cz",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/typescript-estree": "^8.17.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "browserslist-to-esbuild": "^2.1.1",
+    "commitizen": "^4.3.1",
+    "conventional-changelog-cli": "^5.0.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "husky": "^8.0.0",
+    "jsdom": "^23.0.0",
+    "lint-staged": "^15.2.0",
+    "modern-normalize": "^3.0.1",
+    "postcss": "^8.4.49",
+    "postcss-nesting": "^13.0.1",
+    "postcss-preset-env": "^10.1.1",
+    "prettier": "^3.1.0",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "sass-embedded": "^1.81.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "vite-plugin-eslint": "^1.8.1",
+    "vitest": "^0.34.6"
+  }
+}
