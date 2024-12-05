@@ -22,7 +22,9 @@ module.exports = {
     'react/prop-types': 'off',
     'react/jsx-no-bind': 'off',
     '@typescript-eslint/no-explicit-any': 1,
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+
+    'no-console': process.env.NODE_ENV === 'production' ? ['error', { allow: ['warn', 'error'] }] : 'off',
+    'react/jsx-props-no-spreading': [1, { html: 'ignore' }],
     'import/extensions': [
       'error',
       'ignorePackages',
