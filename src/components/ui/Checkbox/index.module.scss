@@ -1,0 +1,59 @@
+$checkbox-with: 24px;
+$gap-with: 4px;
+
+.uiCheckbox {
+  display: flex;
+  position: relative;
+  align-items: center;
+  cursor: pointer;
+
+  &:has(.checkbox:disabled) {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.checkbox {
+  appearance: none;
+  height: $checkbox-with;
+  width: $checkbox-with;
+  margin: $gap-with;
+  border: 1px solid $gray-color;
+  border-radius: $gap-with;
+  transition: all 0.2s ease;
+}
+.checkbox:checked {
+  transform: rotate(-45deg);
+  opacity: 0;
+}
+.check {
+  content: '';
+  position: absolute;
+  left: $gap-with;
+  top: 50%;
+  width: $checkbox-with;
+  height: $checkbox-with;
+  border: solid $primary-color;
+  border-width: 0 $gap-with $gap-with 0;
+  transform: translateY(-50%) rotate(90deg);
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+.checkbox:checked + .check {
+  content: '';
+  position: absolute;
+  left: calc($checkbox-with / 2);
+  top: 50%;
+  width: calc($checkbox-with / 3);
+  height: calc(($checkbox-with / 3) * 2);
+  opacity: 1;
+  transform: translateY(calc(-50% - $gap-with / 2)) rotate(45deg);
+}
+.checkbox:focus-visible {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+.checkLabel {
+  padding-right: $gap-with;
+}
