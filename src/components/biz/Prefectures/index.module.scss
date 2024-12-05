@@ -1,0 +1,16 @@
+.box {
+}
+
+.checkboxGroup {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(10, 1fr);
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    max-height: 30vh;
+    overflow-y: auto;
+    border: 1px solid $gray-color;
+    border-radius: 4px;
+  }
+}

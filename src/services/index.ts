@@ -1,5 +1,5 @@
 import useSWR, { SWRConfiguration, SWRResponse } from 'swr';
-import http, { IRequestOption, IResponseData } from '@/services/http';
+import http, { IRequestOption } from '@/services/http';
 
 export interface IReqOption extends Partial<IRequestOption> {
   runWhenCall?: boolean;
@@ -17,13 +17,12 @@ export interface ISwrOption extends Partial<SWRConfiguration> {
   shouldRetryOnError?: boolean;
 }
 
-export interface Return extends SWRResponse {
-  response?: IResponseData;
-
-  requestKey?: (string | undefined | Record<string, any>)[] | string | null;
+export interface Return<T = unknown> extends SWRResponse {
+  response?: T;
+  requestKey?: (string | undefined | Record<string, unknown>)[] | string | null;
 }
 
-export default function useRequest(reqOption: IReqOption, swrOption: ISwrOption): Return {
+export default function useRequest<T>(reqOption: IReqOption, swrOption: ISwrOption): Return<T> {
   const allReqOption: IReqOption = { runWhenCall: true, ...reqOption };
   // default swrOption
   const allSwrOption = { isImmutable: true, shouldRetryOnError: false, ...swrOption };
@@ -43,5 +42,13 @@ export default function useRequest(reqOption: IReqOption, swrOption: ISwrOption)
 
   const { data, error, mutate, isLoading, isValidating } = useSWR(requestKey, fetcher, { ...allSwrOption });
 
-  return { data, error, mutate, isLoading, isValidating, response: data?.data?.result, requestKey };
+  return {
+    data,
+    error,
+    mutate,
+    isLoading,
+    isValidating,
+    response: data?.data?.result as T,
+    requestKey,
+  };
 }

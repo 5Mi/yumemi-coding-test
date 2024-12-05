@@ -2,13 +2,13 @@ import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, AxiosError } from 'axios';
 
 export interface IRequestData {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-export interface IResponseData<T = any> {
+export interface IResponseData<T = unknown> {
   message: string;
   result: T;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface IRequestOption extends Partial<AxiosRequestConfig<IRequestData>> {
@@ -63,8 +63,8 @@ instance.interceptors.response.use(
 
     if (response) {
       // The request was made and the server responded with a status code not 2XX
-      const { status, data } = response;
-      errMsg = data.msg || `url:${(url || '').toString()},statusCode:${status}`;
+      const { status, data } = response as AxiosResponse<IResponseData>;
+      errMsg = data.message || `url:${(url || '').toString()},statusCode:${status}`;
 
       if (status === 401) {
         stateMsg = 'warning';
@@ -82,7 +82,6 @@ instance.interceptors.response.use(
   },
 );
 
-// 封装请求类
 class Http {
   defaultOptions: IRequestOption = {
     isShowFailMsg: true,
@@ -101,7 +100,7 @@ class Http {
   // handle params when GET or DELETE
   static transformParam(options: IRequestOption, params: IRequestData | undefined, url: string) {
     if (options.method === 'GET' || options.method === 'DELETE') {
-      const paramsStr = new URLSearchParams(params).toString();
+      const paramsStr = new URLSearchParams(params as Record<string, string>).toString();
       const resParamsStr = paramsStr ? `?${paramsStr}` : '';
       return { url: `${url}${resParamsStr}`, data: {} };
     }
