@@ -1,4 +1,8 @@
 .box {
+  display: flex;
+  flex-flow: column;
+  margin: 0 15px 15px;
+  min-height: 260px;
 }
 
 .checkboxGroup {
@@ -8,7 +12,7 @@
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    max-height: 30vh;
+    flex: 1 0;
     overflow-y: auto;
     border: 1px solid $gray-color;
     border-radius: 4px;

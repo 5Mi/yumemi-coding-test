@@ -1,0 +1,10 @@
+.box {
+  height: calc(100vh - 300px);
+  min-height: 380px;
+  margin: 0 15px 15px;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-flow: row wrap;
+}
