@@ -25,7 +25,7 @@ export default defineConfig({
         assetFileNames: 'assets/[name].[hash].[ext]',
         manualChunks: {
           reactVendor: ['react', 'react-dom', 'react-router-dom'],
-          vendor: ['axios', 'swr'],
+          vendor: ['axios', 'swr', 'recharts'],
         },
       },
     },

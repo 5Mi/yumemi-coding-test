@@ -1,5 +1,6 @@
 import useRequest, { IReqOption, ISwrOption } from '@/services';
 import { Fecture, PopulationData } from '@/types';
+import http from '@/services/http';
 
 enum Method {
   GET = 'GET',
@@ -22,3 +23,13 @@ export const usePerYearApi = createApiHook<PopulationData>({
   url: '/api/v1/population/composition/perYear',
   method: Method.GET,
 });
+
+export const requestPerYear = async (prefCode: number) => {
+  const res = await http.request({
+    method: Method.GET,
+    url: '/api/v1/population/composition/perYear',
+    data: { prefCode },
+    enableCache: true,
+  });
+  return (res.data.result as PopulationData).data;
+};

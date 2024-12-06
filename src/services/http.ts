@@ -21,11 +21,23 @@ export interface IRequestOption extends Partial<AxiosRequestConfig<IRequestData>
    * @default true
    */
   isThrowError?: boolean;
+
+  /**
+   * Enable caching for GET requests
+   * @default false
+   */
+  enableCache?: boolean;
+
+  /**
+   * Cache expiration time in milliseconds
+   * @default 5 * 60 * 1000 (5 minutes)
+   */
+  cacheDuration?: number;
 }
 
 const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  headers: { 'X-API-KEY	': import.meta.env.VITE_API_XAPIKEY, 'Content-Type': 'application/json; charset=UTF-8' },
+  headers: { 'X-API-KEY': import.meta.env.VITE_API_XAPIKEY, 'Content-Type': 'application/json; charset=UTF-8' },
 });
 
 instance.interceptors.request.use(
@@ -83,17 +95,65 @@ instance.interceptors.response.use(
 );
 
 class Http {
+  private cache: Map<string, { data: AxiosResponse<IResponseData>; timestamp: number }> = new Map();
+
   defaultOptions: IRequestOption = {
     isShowFailMsg: true,
     isThrowError: true,
     timeout: 5000,
-    // withCredentials: true,
+    enableCache: false,
+    cacheDuration: 5 * 60 * 1000,
   };
 
-  request(options: IRequestOption): Promise<AxiosResponse<IResponseData>> {
+  // Clear expired cache entries
+  private clearExpiredCache() {
+    const now = Date.now();
+    Array.from(this.cache.entries()).forEach(([key, entry]) => {
+      if (now - entry.timestamp > this.defaultOptions.cacheDuration!) {
+        this.cache.delete(key);
+      }
+    });
+  }
+
+  // Manually clear the entire cache
+  clearCache() {
+    this.cache.clear();
+  }
+
+  // Remove a specific cache entry
+  removeCacheEntry(url: string) {
+    this.cache.delete(url);
+  }
+
+  async request(options: IRequestOption): Promise<AxiosResponse<IResponseData>> {
+    // Clear expired cache entries before each request
+    this.clearExpiredCache();
+
     const { url, data } = Http.transformParam(options, options.data, options.url || '');
     const requestOptions = { ...this.defaultOptions, ...options, url, data };
 
+    // Handle caching for GET requests
+    if (requestOptions.method === 'GET' && requestOptions.enableCache) {
+      const cacheKey = url;
+      const cachedResponse = this.cache.get(cacheKey);
+
+      if (cachedResponse) return cachedResponse.data;
+
+      try {
+        const response = await instance.request(requestOptions);
+        // Store the response in cache
+        this.cache.set(cacheKey, {
+          data: response,
+          timestamp: Date.now(),
+        });
+
+        return response;
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+
+    // Normal request without caching
     return instance.request(requestOptions);
   }
 
