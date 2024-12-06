@@ -24,8 +24,8 @@ export interface IRequestOption extends Partial<AxiosRequestConfig<IRequestData>
 }
 
 const instance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_SOME_APIURL,
-  headers: { 'X-API-KEY	': import.meta.env.VITE_SOME_XAPIKEY, 'Content-Type': 'application/json; charset=UTF-8' },
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: { 'X-API-KEY	': import.meta.env.VITE_API_XAPIKEY, 'Content-Type': 'application/json; charset=UTF-8' },
 });
 
 instance.interceptors.request.use(
