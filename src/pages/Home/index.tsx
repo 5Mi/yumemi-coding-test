@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import Prefectures from '@/components/biz/Prefectures';
+import PopulationChart from '@/components/biz/PopulationChart';
+import { type Fecture } from '@/types';
 
 const Home: React.FC = () => {
-  const [prefCodes, setPrefCodes] = useState<number[]>([]);
-  // const { response: perYear } = usePerYearApi({
-  //   runWhenCall: prefectures && prefectures.length > 0,
-  //   data: { prefCode: 1 },
-  // });
-  function handlePrefectuersChange(selected: number[]) {
-    // console.log(selected);
-    setPrefCodes(selected);
+  const [selectFectures, setSelectFectures] = useState<Fecture[]>([]);
+  function handlePrefectuersChange(selected: Fecture[]) {
+    setSelectFectures(selected);
   }
   return (
-    <div>
-      <Prefectures selected={prefCodes} onChange={handlePrefectuersChange} />
+    <div className="page-box">
+      <Prefectures selected={selectFectures} onChange={handlePrefectuersChange} />
+      <PopulationChart selectFectures={selectFectures} />
     </div>
   );
 };

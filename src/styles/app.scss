@@ -1,1 +1,9 @@
+@use './variables' as *;
 // business global style
+.page-box {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  font-size: $font-size-base;
+}

@@ -1,0 +1,19 @@
+.box {
+  height: calc(100vh - 300px);
+  min-height: 380px;
+  margin: 0 15px 15px;
+}
+
+.checkBoxTitle {
+  font-size: $font-size-small;
+  color: $text-secondary-color;
+}
+
+.noDataText {
+  transform: translate(50%, 50%);
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-flow: row wrap;
+}
