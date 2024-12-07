@@ -5,7 +5,7 @@ import styles from './App.module.scss';
 const App: React.FC = () => (
   <div className={styles.App}>
     <AppRoutes />
-    <SpeedInsights />
+    {import.meta.env.MODE === 'production' && <SpeedInsights />}
   </div>
 );
 

@@ -16,4 +16,18 @@
 .checkboxGroup {
   display: flex;
   flex-flow: row wrap;
+  margin-bottom: 4px;
+}
+
+.chartContainer {
+  width: 100%;
+  height: calc(100% - 50px);
+  &.noData {
+    border: 1px dashed $gray-color;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    height: calc(100% - 65px);
+  }
 }

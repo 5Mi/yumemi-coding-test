@@ -1,5 +1,15 @@
-import { LineChart, Line, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer, Customized, Text } from 'recharts';
 import { useEffect, useState } from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Legend,
+  Tooltip,
+  ResponsiveContainer,
+  Customized,
+  Text,
+} from '@/utils/recharts';
 import { type Fecture, type LabelData } from '@/types';
 import { pCheckboxData, type CheckDataType } from './const';
 import { requestPerYear } from '@/api';
@@ -98,31 +108,33 @@ const PopulationChart: React.FC<PopulationChartProps> = ({ selectFectures }) => 
           </Checkbox>
         ))}
       </div>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          margin={{
-            top: 5,
-            right: 10,
-            left: 0,
-            bottom: 5,
-          }}
-        >
-          <XAxis
-            dataKey="year"
-            padding={{ right: 35 }}
-            label={{ value: '年', position: 'insideBottomRight' }}
-            type="category"
-            allowDuplicatedCategory={false}
-          />
-          <YAxis dataKey="value" padding={{ top: 30 }} label={{ value: '人口', position: 'insideTopLeft' }} />
-          <Tooltip />
-          <Legend />
-          {chartData.map((perData) => (
-            <Line dataKey="value" data={perData.data} name={perData.label} key={perData.key} stroke={perData.color} />
-          ))}
-          <Customized component={renderNodata} />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className={chartData.length === 0 ? `${styles.chartContainer} ${styles.noData}` : styles.chartContainer}>
+        <ResponsiveContainer>
+          <LineChart
+            margin={{
+              top: 5,
+              right: 10,
+              left: 0,
+              bottom: 5,
+            }}
+          >
+            <XAxis
+              dataKey="year"
+              padding={{ right: 35 }}
+              label={{ value: '年', position: 'insideBottomRight' }}
+              type="category"
+              allowDuplicatedCategory={false}
+            />
+            <YAxis dataKey="value" padding={{ top: 30 }} label={{ value: '人口', position: 'insideTopLeft' }} />
+            <Tooltip />
+            <Legend />
+            {chartData.map((perData) => (
+              <Line dataKey="value" data={perData.data} name={perData.label} key={perData.key} stroke={perData.color} />
+            ))}
+            <Customized component={renderNodata} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
