@@ -3,15 +3,15 @@ import { useEffect, useState } from 'react';
 import { type Fecture, type LabelData } from '@/types';
 import { pCheckboxData, type CheckDataType } from './const';
 import { requestPerYear } from '@/api';
+import getColorRandom from '@/utils/randomColorGenerator';
 import Checkbox from '@/components/ui/Checkbox';
-// import PopulationChartLine from './PopulationChartLine';
 import styles from './index.module.scss';
 
 type PopulationChartProps = {
   selectFectures: Fecture[];
 };
 
-type HandleYearDataType = LabelData & { key: string; color: string };
+type HandleYearDataType = LabelData & { key: string; color?: string };
 
 const PopulationChart: React.FC<PopulationChartProps> = ({ selectFectures }) => {
   const [chartData, setChartData] = useState<HandleYearDataType[]>([]);
@@ -34,20 +34,26 @@ const PopulationChart: React.FC<PopulationChartProps> = ({ selectFectures }) => 
       const chartDatas = await Promise.all(selectFectures.map(async (fecture) => requestPerYear(fecture.prefCode)));
 
       // get handled data
-      const newChartDatas: LabelData[] = [];
+      const newChartDatas: HandleYearDataType[] = [];
+      const colors = getColorRandom(chartDatas.length);
       chartDatas.forEach((data, fectureIndex) => {
+        // add same color for fecture
+        data.forEach((_, perindex) => {
+          const per = data[perindex] as HandleYearDataType;
+          per.color = per.color || colors[fectureIndex];
+        });
         checkedLabels.forEach((per) => {
           const { index } = per;
           const curFecture = selectFectures[fectureIndex];
           const cur = data[index] as HandleYearDataType;
           cur.label = `${curFecture.prefName}-${per.label}`;
           cur.key = `${curFecture.prefCode}-${per.value}`;
-          cur.color = 'red';
+
+          cur.color = cur.color || colors[fectureIndex];
           newChartDatas.push(cur);
         });
       });
-
-      setChartData(newChartDatas as any);
+      setChartData(newChartDatas);
     };
     fetchData();
   }, [selectFectures, checkedLabels]);
@@ -83,16 +89,8 @@ const PopulationChart: React.FC<PopulationChartProps> = ({ selectFectures }) => 
           <Tooltip />
           <Legend />
           {chartData.map((perData) => (
-            <Line dataKey="value" data={perData.data} name={perData.label} key={perData.key} stroke="#3498db" />
+            <Line dataKey="value" data={perData.data} name={perData.label} key={perData.key} stroke={perData.color} />
           ))}
-          {/* {selectFectures.map((fecture) => (
-            <PopulationChartLine
-              key={fecture.prefCode}
-              fecture={fecture}
-              checkedPopulationLabels={checkedLabels}
-              color="red"
-            />
-          ))} */}
         </LineChart>
       </ResponsiveContainer>
     </div>

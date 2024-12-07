@@ -1,12 +1,12 @@
 /**
  * 残念ながら、RechartsのLineなどのコンポーネントは、フックを使用する状況下では高階コンポーネントとしてカプセル化することができませんでした。この問題で長時間試行錯誤しましたが、最終的に諦めることになりました。詳細については、 [issue](https://github.com/recharts/recharts/issues/412)
  */
-import { Line, Props } from 'recharts';
+import { Line } from 'recharts';
 import { LabelData, type Fecture } from '@/types';
 import { type CheckDataType } from '../const';
 import { usePerYearApi } from '@/api';
 
-interface PopulationChartLineProps extends Props {
+interface PopulationChartLineProps {
   color: string;
   checkedPopulationLabels: CheckDataType[];
   fecture: Fecture;
