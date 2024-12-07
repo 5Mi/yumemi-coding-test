@@ -1,5 +1,6 @@
 import useRequest, { IReqOption, ISwrOption } from '@/services';
 import { Fecture, PopulationData } from '@/types';
+import { type Return } from '@/services/index';
 import http from '@/services/http';
 
 enum Method {
@@ -11,7 +12,7 @@ enum Method {
 
 export const createApiHook =
   <T>(defaultReq: IReqOption = {}, defaultSWR: ISwrOption = {}) =>
-  (reqOption?: IReqOption, swrOption?: ISwrOption): { response?: T } =>
+  (reqOption?: IReqOption, swrOption?: ISwrOption): Return<T> =>
     useRequest({ ...defaultReq, ...reqOption }, { ...defaultSWR, ...swrOption });
 
 export const usePrefecturesApi = createApiHook<Fecture[]>({

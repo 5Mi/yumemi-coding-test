@@ -2,6 +2,7 @@ import styles from './index.module.scss';
 import Checkbox from '@/components/ui/Checkbox';
 import { type Fecture } from '@/types';
 import { usePrefecturesApi } from '@/api';
+import Loading from '@/components/ui/Loading';
 
 interface PrefecturesProps {
   selected: Fecture[];
@@ -10,7 +11,7 @@ interface PrefecturesProps {
 
 const Prefectures: React.FC<PrefecturesProps> = ({ selected, onChange }) => {
   const nameConst = 'prefecture';
-  const { response: prefectures } = usePrefecturesApi();
+  const { response: prefectures, isLoading } = usePrefecturesApi();
   const handleCheckboxChange = (fecture: Fecture) => {
     const newSelected = selected.some((per) => per.prefCode === fecture.prefCode)
       ? selected.filter((per) => per.prefCode !== fecture.prefCode)
@@ -19,29 +20,32 @@ const Prefectures: React.FC<PrefecturesProps> = ({ selected, onChange }) => {
   };
 
   return (
-    <div className={styles.box}>
-      <h2>都道府県</h2>
-      <div className={styles.checkboxGroup}>
-        {prefectures &&
-          prefectures.map((per) => (
-            <Checkbox
-              key={per.prefCode}
-              labelProps={{ htmlFor: `${nameConst}-${per.prefCode}` }}
-              inputProps={{
-                id: `${nameConst}-${per.prefCode}`,
-                checked: selected.some((select) => select.prefCode === per.prefCode),
-                onChange: () =>
-                  handleCheckboxChange({
-                    prefCode: per.prefCode,
-                    prefName: per.prefName,
-                  }),
-              }}
-            >
-              {per.prefName}
-            </Checkbox>
-          ))}
+    <>
+      {isLoading && <Loading />}
+      <div className={styles.box}>
+        <h2>都道府県</h2>
+        <div className={styles.checkboxGroup}>
+          {prefectures &&
+            prefectures.map((per) => (
+              <Checkbox
+                key={per.prefCode}
+                labelProps={{ htmlFor: `${nameConst}-${per.prefCode}` }}
+                inputProps={{
+                  id: `${nameConst}-${per.prefCode}`,
+                  checked: selected.some((select) => select.prefCode === per.prefCode),
+                  onChange: () =>
+                    handleCheckboxChange({
+                      prefCode: per.prefCode,
+                      prefName: per.prefName,
+                    }),
+                }}
+              >
+                {per.prefName}
+              </Checkbox>
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
