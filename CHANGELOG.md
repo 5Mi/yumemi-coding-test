@@ -1,3 +1,28 @@
+## 1.0.0 (2024-12-08)
+
+* docs(readme): readme info change ([961b023](https://github.com/5Mi/yumemi-coding-test/commit/961b023))
+* test(component): add unit test for component ([dc08c2a](https://github.com/5Mi/yumemi-coding-test/commit/dc08c2a))
+* style(component): populatoin chart line add color ([c6cff36](https://github.com/5Mi/yumemi-coding-test/commit/c6cff36))
+* style(homepage): adjust home page style ([00d0ba7](https://github.com/5Mi/yumemi-coding-test/commit/00d0ba7))
+* style(notfound page): add style for notfound page ([b7bd776](https://github.com/5Mi/yumemi-coding-test/commit/b7bd776))
+* perf(http request): add recharts & cache function for request ([a1a50a9](https://github.com/5Mi/yumemi-coding-test/commit/a1a50a9))
+* perf(recharts): import recharts by needs, but do not seem to have much effect ([a2c5101](https://github.com/5Mi/yumemi-coding-test/commit/a2c5101))
+* feat(api): add swr axios for request ([a763831](https://github.com/5Mi/yumemi-coding-test/commit/a763831))
+* feat(component): add populaton chart component & change some styles ([15c0691](https://github.com/5Mi/yumemi-coding-test/commit/15c0691))
+* feat(util): add color generator util function & test ([c3aa74c](https://github.com/5Mi/yumemi-coding-test/commit/c3aa74c))
+* feat(vercel): add vercel/speed-insights ([09e24e9](https://github.com/5Mi/yumemi-coding-test/commit/09e24e9))
+* chore: init project ([179156e](https://github.com/5Mi/yumemi-coding-test/commit/179156e))
+* chore(builder): add router & adjust lint setting ([42e8f70](https://github.com/5Mi/yumemi-coding-test/commit/42e8f70))
+* chore(codeowners): add myself as codeowner for this repo ([f915206](https://github.com/5Mi/yumemi-coding-test/commit/f915206))
+* chore(line component): [issue](https://github.com/recharts/recharts/issues/412) ([3483556](https://github.com/5Mi/yumemi-coding-test/commit/3483556))
+* ci: add CI for featrue branch ([a6a1595](https://github.com/5Mi/yumemi-coding-test/commit/a6a1595))
+* ci: add workflow ([83ab5c9](https://github.com/5Mi/yumemi-coding-test/commit/83ab5c9))
+* ci(pnpm): setup pnpm cache ([51d58cc](https://github.com/5Mi/yumemi-coding-test/commit/51d58cc))
+* ci(secret key): use env variables to replace secert key ([a5135e5](https://github.com/5Mi/yumemi-coding-test/commit/a5135e5))
+* feat(component & page): split page & add checkbox component ([b53e47d](https://github.com/5Mi/yumemi-coding-test/commit/b53e47d))
+
+
+
 ## 1.0.0 (2024-12-04)
 
 - ci: add workflow ([83ab5c9](https://github.com/5Mi/yumemi-coding-test/commit/83ab5c9))
