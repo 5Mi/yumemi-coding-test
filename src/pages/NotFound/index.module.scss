@@ -1,0 +1,21 @@
+$font-stack: 'VT323', monospace;
+@import 'https://fonts.googleapis.com/css?family=VT323';
+
+.pageNotFound {
+  font-family: $font-stack;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .container {
+    transform: translateY(-15px);
+    .title {
+      text-align: center;
+      color: $background-color;
+      background: $gray-color;
+      padding: 0 15px 2px 13px;
+      font-size: 50px;
+    }
+  }
+}
