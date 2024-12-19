@@ -42,12 +42,14 @@ const PopulationChart: React.FC<PopulationChartProps> = ({ selectFectures }) => 
   };
 
   useEffect(() => {
+    // avoid Race Condition
+    let isSubscribed = true;
     const fetchData = async () => {
       if (selectFectures.length > 0) {
         setLoading(true);
       }
-
       const chartDatas = await Promise.all(selectFectures.map(async (fecture) => requestPerYear(fecture.prefCode)));
+      if (!isSubscribed) return;
 
       // get handled data
       const newChartDatas: HandleYearDataType[] = [];
@@ -73,6 +75,9 @@ const PopulationChart: React.FC<PopulationChartProps> = ({ selectFectures }) => 
       setLoading(false);
     };
     fetchData();
+    return () => {
+      isSubscribed = false;
+    };
   }, [selectFectures, checkedLabels]);
 
   const renderNodata = () =>
